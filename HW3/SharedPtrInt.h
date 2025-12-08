@@ -81,9 +81,27 @@ public:
 		}
 	}
 
+	sharedPtr(sharedPtr&& other) noexcept
+		: ptr(other.ptr)
+		, count(other.count)
+	{
+		other.ptr = nullptr;
+		other.count = nullptr;
+	}
+
+	sharedPtr& operator=(sharedPtr&& other) noexcept {
+		if (this != &other) {
+			release();
+			ptr = other.ptr;
+			count = other.count;
+			other.ptr = nullptr;
+			other.count = nullptr;
+		}
+		return *this;
+	}
+
 	A GetPtr()
 	{
 		return *ptr;
 	}
 };
-

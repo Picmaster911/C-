@@ -55,5 +55,20 @@ public:
 			ptr = p;
 		}
 	}
+
+	uniquePtr(uniquePtr&& other) noexcept
+		: ptr(other.ptr)
+	{
+		other.ptr = nullptr;
+	}
+
+	uniquePtr& operator=(uniquePtr&& other) noexcept {
+		if (this != &other) {
+			delete ptr;
+			ptr = other.ptr;
+			other.ptr = nullptr;
+		}
+		return *this;
+	}
 };
 
