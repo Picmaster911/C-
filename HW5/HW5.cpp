@@ -15,8 +15,10 @@ void listFileRecursive(const fs::path& dirPath,  std::unique_ptr<MyTypeOffExteti
     for (fs::recursive_directory_iterator it(dirPath); it != fs::recursive_directory_iterator(); ++it)
     {
         const auto& entry = *it;
+
         if (entry.is_regular_file())
-        {
+        { 
+            myTypeOffExtetion->countAllFile ++;
             myTypeOffExtetion->totalSize = myTypeOffExtetion->totalSize + entry.file_size();
         };
 
@@ -64,8 +66,12 @@ int main()
     std::cout << "Found .jpg, .png, .bmp file = " << myExt->path_picture.size() << std::endl;
     std::cout << "Found txt file = " << myExt->path_txt.size() << std::endl;
     std::cout << "Total size all file in folder = " << myExt->totalSize <<" Byte" << std::endl;
+    std::cout << "Total count other file = " << myExt->GetCountOtherFile() << " files" << std::endl;
+    std::cout << "Size collection EXE = " << myExt->GetSizeCollectionFile(EXE) << " Byte" << std::endl;
+    std::cout << "Size collection TXT = " << myExt->GetSizeCollectionFile(TXT) << " Byte" << std::endl;
+   
 
-    //jast for my
+    //jast for my LAMBDA
     std::vector<int> myint{ 1,2,3,4,5,6,7,8 };
 
     auto my = std::find_if(myint.begin(), myint.end(), [](int x) { return x > 3 || x < 7; });
