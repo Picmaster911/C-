@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <filesystem>
+#include <cstdint>
 namespace fs = std::filesystem;
 
 enum TypeExtension
@@ -58,6 +58,7 @@ public:
 			case TXT: return getSizeCollectionFile(path_txt);
 			case PICTURE: return getSizeCollectionFile(path_picture);
 			case OTHER: return getSizeCollectionFile(other_file);
+			default:      return 0;
 		}
 
 	}
