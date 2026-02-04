@@ -1,0 +1,51 @@
+Kонфигурация 
+cmake -G "Visual Studio 17 2022" -A x64 -D CMAKE_INSTALL_PREFIX=C:\OpenCV\install E:\OpenCVLib\opencv-4.13.0
+Сборка
+cmake --build C:\OpenCV --config Release
+Установка
+cmake --install C:\OpenCV --config Release
+
+cmake --build C:\OpenCV --config Debug
+cmake --install C:\OpenCV --config Debug
+
+После сборки НЕ ЗАБУДЬ:
+
+Добавить в PATH:
+C:\OpenCV\install\x64\vc17\bin
+
+-------------------Примечание---------------------------- 
+
+-D CMAKE_INSTALL_PREFIX=C:\OpenCV\install
+
+Говорит:
+
+«Когда я скажу cmake --install, установи OpenCV вот сюда»
+
+📂 Итоговая структура потом:
+
+C:\OpenCV\install\
+ ├── x64\vc17\bin   ← DLL
+ ├── x64\vc17\lib   ← .lib
+ └── include\opencv4
+
+----------------------------------------------------------
+CMAKE проекта 
+----------------------------------------------------------
+cmake_minimum_required(VERSION 3.20)
+project(Project)
+
+# Використовувати стандарт C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(OpenCV_DIR "C:/OpenCV/install/x64/vc17/lib")
+find_package(OpenCV REQUIRED)
+
+message(STATUS "OpenCV version: ${OpenCV_VERSION}")
+message(STATUS "OpenCV libs: ${OpenCV_LIBS}")
+message(STATUS "OpenCV include: ${OpenCV_INCLUDE_DIRS}")
+
+add_executable(Project main.cpp)
+target_link_libraries(Project PRIVATE ${OpenCV_LIBS})
+target_include_directories(Project PRIVATE ${OpenCV_INCLUDE_DIRS})
+
